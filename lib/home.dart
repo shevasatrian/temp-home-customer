@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/rendering.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -79,10 +80,41 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   FocusNode focusNodeLokasiTujuan = FocusNode();
 
   Widget buildTopBar() {
+    return Stack(
+      children: [
+        Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 140,
+              decoration: BoxDecoration(
+                  color: Color(0xFFF3C703),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30))),
+              child: Stack(
+                children: [
+                  _buildTopBar(),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Positioned(
+          top: 70.0,
+          child: Container(
+            child: buildSearch(),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildTopBar() {
     return Wrap(
       children: [
         Container(
-          // height: 247.0,
+          // height: 100.0,
           padding: const EdgeInsets.only(
             top: 10,
             bottom: 20,
@@ -90,15 +122,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             right: 20,
           ),
           decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [BoxShadow(blurRadius: 0)],
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(30.0),
-                  bottomLeft: Radius.circular(30.0))),
+            color: Color(0xFFF3C703),
+            // boxShadow: [BoxShadow(blurRadius: 0)],
+            // borderRadius: BorderRadius.only(
+            //     bottomRight: Radius.circular(30.0),
+            //     bottomLeft: Radius.circular(30.0))
+          ),
           child: Column(
             children: [
               Container(
-                color: Colors.white,
+                // color: Colors.white,
                 padding: const EdgeInsets.symmetric(
                     // horizontal: 10,
                     ),
@@ -124,16 +157,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     ),
                     Expanded(child: Container()),
                     Image.asset(
-                      "img/logo.png",
-                      scale: 2.7,
+                      "img/logo-2.png",
+                      scale: 3.0,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              buildSearch(),
+              // Container(
+              //   height: 50,
+              // )
             ],
           ),
         ),
@@ -144,12 +176,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget buildPesanSekarang() {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: 10,
       ),
       width: MediaQuery.of(context).size.width,
-      height: 120.0,
+      // height: 120.0,
       color: const Color.fromRGBO(0, 0, 0, 0),
       child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(40),
@@ -158,19 +191,132 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           color: Color(0xFFF3C703),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
+            Padding(
+                padding: EdgeInsets.symmetric(
+              vertical: 8,
+            )),
             Text(
               "😀🤚🏻",
               style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(
+              height: 10,
             ),
             Text(
               "Kamu Mau Pergi?",
               style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
             ),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               "Buruan isi alamatnya, segera berangakat deh",
               style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w300),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Text(
+              "Metode Pembayaran",
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Card(
+                  color: Color(0xFFFAE897),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 10,
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "img/ceklist.png",
+                          scale: 3.0,
+                        ),
+                        Padding(padding: EdgeInsets.only(right: 6)),
+                        Text(
+                          "Tunai",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4B4B4B),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                Card(
+                  color: Color(0xFFFAE897),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 10,
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "img/ceklist.png",
+                          scale: 3.0,
+                        ),
+                        Padding(padding: EdgeInsets.only(right: 6)),
+                        Text(
+                          "QRIS",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4B4B4B),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                Card(
+                  color: Color(0xFFFAE897),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 10,
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "img/ceklist.png",
+                          scale: 3.0,
+                        ),
+                        Padding(padding: EdgeInsets.only(right: 6)),
+                        Text(
+                          "Dana",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF4B4B4B),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5,
             )
           ],
         ),
@@ -180,254 +326,239 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   Widget buildBottomBar() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // kamu mau pergi
-        buildPesanSekarang(),
-        Container(
-          height: 310.0,
-          padding: const EdgeInsets.symmetric(
-            vertical: 20,
-            horizontal: 10,
-          ),
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [BoxShadow(blurRadius: 0)],
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30.0),
-                  topLeft: Radius.circular(30.0))),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    // child: Card(
-                    // // color: '#FFFFFF'.toColor(),
-                    // shape: RoundedRectangleBorder(
-                    //     side: BorderSide(
-                    //       // color: '#FFFFFF'.toColor(),
-                    //     ),
-                    // borderRadius: BorderRadius.circular(10.0)),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                      decoration: BoxDecoration(),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  Image.asset(
-                                    "img/ojek.png",
-                                    scale: 3.6,
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5)),
-                                      Text(
-                                        "Ojeknya Mangjek",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5)),
-                                      Text(
-                                        "Akan membantu kamu untuk",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12),
-                                      ),
-                                      // Text(
-                                      //   "mengantar pergi & pulang ngampus",
-                                      //   style: TextStyle(
-                                      //       fontWeight: FontWeight.w600,
-                                      //       fontSize: 12),
-                                      // )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5)),
-                                      Text(
-                                        "mengantar pergi & pulang ngampus",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.symmetric(
-                                        horizontal: 5,
-                                      )),
-                                      Text(
-                                        "Nantikan fitur terbaru mangjek ya",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 10),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              // Expanded(child: SizedBox.fromSize()),
-                              // Column(
-                              //   // crossAxisAlignment: CrossAxisAlignment.end,
-                              //   children: [
-                              //     // Padding(padding: EdgeInsets.only(right: 5)),
-                              //     Text(
-                              //       "Rp 10.000",
-                              //       style: TextStyle(
-                              //           fontWeight: FontWeight.w600,
-                              //           fontSize: 15),
-                              //     )
-                              //   ],
-                              // )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    // ),
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // kamu mau pergi
+          buildPesanSekarang(),
+          Container(
+            // height: 260.0,
+            padding: const EdgeInsets.symmetric(
+              vertical: 20,
+              horizontal: 10,
+            ),
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                    spreadRadius: 4,
+                    blurRadius: 21,
                   ),
-                  // Expanded(
-                  //   child: GestureDetector(
-                  //     onTap: () {
-                  //       _ubahWarna(0);
-                  //     },
-                  //     child: Card(
-                  //       color: selectedCard == 0
-                  //                 ? '#F7FCF9'.toColor()
-                  //                 : "#FFFFFF".toColor(),
-                  //       shape: RoundedRectangleBorder(
-                  //           side: BorderSide(
-                  //             color: selectedCard == 0
-                  //                 ? '#33BC51'.toColor()
-                  //                 : "#EBEFED".toColor(),
-                  //           ),
-                  //           borderRadius: BorderRadius.circular(10.0)),
-                  //       child: Container(
-                  //         padding: EdgeInsets.all(10.0),
-                  //         decoration: BoxDecoration(),
-                  //         child: Column(
-                  //           // mainAxisAlignment: MainAxisAlignment.start,
-                  //           children: [
-                  //             Image.asset("img/motor.png"),
-                  //             Text("Motor")
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Expanded(
-                  //   child: GestureDetector(
-                  //     onTap: () {
-                  //       _ubahWarna(1);
-                  //     },
-                  //     child: Card(
-                  //       color: selectedCard == 1
-                  //                 ? '#F7FCF9'.toColor()
-                  //                 : "#FFFFFF".toColor(),
-                  //       shape: RoundedRectangleBorder(
-                  //           side: BorderSide(
-                  //             color: selectedCard == 1
-                  //                 ? '#33BC51'.toColor()
-                  //                 : "#EBEFED".toColor(),
-                  //           ),
-                  //           borderRadius: BorderRadius.circular(10.0)),
-                  //       child: Container(
-                  //         padding: EdgeInsets.all(10.0),
-                  //         decoration: BoxDecoration(),
-                  //         child: Column(
-                  //           children: [
-                  //             Image.asset("img/makanan.png"),
-                  //             Text("Makanan")
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Expanded(
-                  //   child: GestureDetector(
-                  //     onTap: () {
-                  //       _ubahWarna(2);
-                  //     },
-                  //     child: Card(
-                  //       color: selectedCard == 2
-                  //                 ? '#F7FCF9'.toColor()
-                  //                 : "#FFFFFF".toColor(),
-                  //       shape: RoundedRectangleBorder(
-                  //           side: BorderSide(
-                  //             color: selectedCard == 2
-                  //                 ? '#33BC51'.toColor()
-                  //                 : "#EBEFED".toColor(),
-                  //           ),
-                  //           borderRadius: BorderRadius.circular(10.0)),
-                  //       child: Container(
-                  //         padding: EdgeInsets.all(10.0),
-                  //         decoration: BoxDecoration(),
-                  //         child: Column(
-                  //           children: [
-                  //             Image.asset("img/pesanAntar.png"),
-                  //             Text("Pesan Antar")
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: 300.0,
-                height: 50.0,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      backgroundColor: '#F3C703'.toColor()),
-                  child: const Text("Pesan Sekarang"),
-                  onPressed: (() => context),
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      // child: Card(
+                      // // color: '#FFFFFF'.toColor(),
+                      // shape: RoundedRectangleBorder(
+                      //     side: BorderSide(
+                      //       // color: '#FFFFFF'.toColor(),
+                      //     ),
+                      // borderRadius: BorderRadius.circular(10.0)),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        decoration: BoxDecoration(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    Image.asset(
+                                      "img/ojek.png",
+                                      scale: 3.6,
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(left: 15.0),
+                                        width: double.infinity,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              "Ojeknya Sikuning",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              "Akan membantu kamu untuk mengantar pergi & pulang ngampus",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              "Nantikan fitur terbaru mangjek ya",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 10,
+                                                color: Color(0xFF8C8C8C),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                // Expanded(child: SizedBox.fromSize()),
+                                // Column(
+                                //   // crossAxisAlignment: CrossAxisAlignment.end,
+                                //   children: [
+                                //     // Padding(padding: EdgeInsets.only(right: 5)),
+                                //     Text(
+                                //       "Rp 10.000",
+                                //       style: TextStyle(
+                                //           fontWeight: FontWeight.w600,
+                                //           fontSize: 15),
+                                //     )
+                                //   ],
+                                // )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // ),
+                    ),
+                    // Expanded(
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       _ubahWarna(0);
+                    //     },
+                    //     child: Card(
+                    //       color: selectedCard == 0
+                    //                 ? '#F7FCF9'.toColor()
+                    //                 : "#FFFFFF".toColor(),
+                    //       shape: RoundedRectangleBorder(
+                    //           side: BorderSide(
+                    //             color: selectedCard == 0
+                    //                 ? '#33BC51'.toColor()
+                    //                 : "#EBEFED".toColor(),
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10.0)),
+                    //       child: Container(
+                    //         padding: EdgeInsets.all(10.0),
+                    //         decoration: BoxDecoration(),
+                    //         child: Column(
+                    //           // mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             Image.asset("img/motor.png"),
+                    //             Text("Motor")
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Expanded(
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       _ubahWarna(1);
+                    //     },
+                    //     child: Card(
+                    //       color: selectedCard == 1
+                    //                 ? '#F7FCF9'.toColor()
+                    //                 : "#FFFFFF".toColor(),
+                    //       shape: RoundedRectangleBorder(
+                    //           side: BorderSide(
+                    //             color: selectedCard == 1
+                    //                 ? '#33BC51'.toColor()
+                    //                 : "#EBEFED".toColor(),
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10.0)),
+                    //       child: Container(
+                    //         padding: EdgeInsets.all(10.0),
+                    //         decoration: BoxDecoration(),
+                    //         child: Column(
+                    //           children: [
+                    //             Image.asset("img/makanan.png"),
+                    //             Text("Makanan")
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Expanded(
+                    //   child: GestureDetector(
+                    //     onTap: () {
+                    //       _ubahWarna(2);
+                    //     },
+                    //     child: Card(
+                    //       color: selectedCard == 2
+                    //                 ? '#F7FCF9'.toColor()
+                    //                 : "#FFFFFF".toColor(),
+                    //       shape: RoundedRectangleBorder(
+                    //           side: BorderSide(
+                    //             color: selectedCard == 2
+                    //                 ? '#33BC51'.toColor()
+                    //                 : "#EBEFED".toColor(),
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10.0)),
+                    //       child: Container(
+                    //         padding: EdgeInsets.all(10.0),
+                    //         decoration: BoxDecoration(),
+                    //         child: Column(
+                    //           children: [
+                    //             Image.asset("img/pesanAntar.png"),
+                    //             Text("Pesan Antar")
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: 300.0,
+                  height: 50.0,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                        backgroundColor: MaterialStatePropertyAll(Color(0xFFF3C703))
+                        // backgroundColor: Color(0xFFF3C703),
+                        ),
+                    child: const Text("Pesan Sekarang"),
+                    onPressed: (() => context),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
     //
   }
@@ -484,18 +615,29 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   Widget buildSearch() {
     return Container(
+      width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
       ),
-      width: MediaQuery.of(context).size.width,
-      height: 120.0,
+      // height: 120.0,
       color: const Color.fromRGBO(0, 0, 0, 0),
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.1),
+              spreadRadius: 4,
+              blurRadius: 21,
+            ),
+          ],
           borderRadius: BorderRadius.all(
             Radius.circular(18),
           ),
-          color: Color(0xFFF3C703),
+          color: Color(0xFFF7FCF9),
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 5,
+          vertical: 7,
         ),
         child: Column(
           children: [
@@ -561,6 +703,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             // bar atas
             buildTopBar(),
             // search bar
+            // buildSearch(),
             // bottom bar
             conditionalBuildBottomBar(),
             // bottom navigation bar
@@ -642,7 +785,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return !focusNodeLokasiTujuan.hasFocus && !focusNodeTitikJemput.hasFocus
         ? Align(
             alignment: Alignment.bottomCenter,
-            child: buildBottomBar(),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 70,
+              ),
+              child: buildBottomBar(),
+            ),
           )
         : const SizedBox();
   }

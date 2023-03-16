@@ -104,6 +104,8 @@ flutter:
   - img/vector.png
   - img/copy.png
   - img/whatsapp.png
+  - img/logo-2.png
+  - img/ceklist.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
