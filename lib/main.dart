@@ -13,7 +13,7 @@ import './akuntansikeuangan.dart' as akuntansikeuangan;
 void main() {
   runApp(MaterialApp(
     title: "Home",
-    home: home.Home(),
+    home: homeprice.HomePrice(),
     theme: ThemeData(fontFamily: 'Poppins'),
   ));
 }
