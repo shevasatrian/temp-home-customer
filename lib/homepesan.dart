@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:menucustomer/drage_handle.dart';
 import 'extentions.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -104,10 +105,8 @@ class _HomePesanState extends State<HomePesan>
           );
   }
 
-  Widget buildBottomBar() {
-    return ListView(
-      shrinkWrap: true,
-      children: [
+  Widget buildBottomBar(ScrollController scrollController) {
+    return ListView(controller: scrollController, shrinkWrap: true, children: [
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -131,6 +130,7 @@ class _HomePesanState extends State<HomePesan>
                 Container(
                     child: Column(
                   children: [
+                    DragHandle(),
                     Row(
                       children: [
                         Padding(padding: EdgeInsets.only(left: 10)),
@@ -234,7 +234,7 @@ class _HomePesanState extends State<HomePesan>
                                         ),
                                       ],
                                     ),
-                                    const Column(
+                                    Column(
                                       // mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -297,7 +297,7 @@ class _HomePesanState extends State<HomePesan>
                                       ],
                                     ),
                                     Expanded(child: SizedBox.fromSize()),
-                                    const Column(
+                                    Column(
                                       // crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
                                         // Padding(padding: EdgeInsets.only(right: 5)),
@@ -334,7 +334,7 @@ class _HomePesanState extends State<HomePesan>
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 15),
                               decoration: BoxDecoration(),
-                              child: const Column(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Row(
@@ -390,7 +390,7 @@ class _HomePesanState extends State<HomePesan>
                   ],
                 )),
                 Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                const Row(
+                Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 5)),
                     Text(
@@ -563,9 +563,10 @@ class _HomePesanState extends State<HomePesan>
                     Expanded(child: Container()),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
                               "Via Whatsapp",
@@ -582,7 +583,7 @@ class _HomePesanState extends State<HomePesan>
                         ),
                       ],
                     ),
-                    Expanded(child: Container()),
+                    Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
                   ],
                 ),
                 Padding(
@@ -625,20 +626,50 @@ class _HomePesanState extends State<HomePesan>
     //
   }
 
+  Widget showBuildBottomBar() {
+    return DraggableScrollableSheet(
+        initialChildSize: 0.37,
+        minChildSize: 0.37,
+        maxChildSize: 0.9,
+        snap: true,
+        snapSizes: [0.37, 0.9],
+        builder: (BuildContext context, ScrollController scrollController) {
+          return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+              ),
+              child: buildBottomBar(scrollController));
+        });
+  }
+
   Widget conditionalBuildBottomBar() {
     // print("lokasi tujuan : ${focusNodeLokasiTujuan.hasPrimaryFocus}");
     // print("lokasi jemput : ${focusNodeTitikJemput.hasPrimaryFocus}");
     return !focusNodeLokasiTujuan.hasFocus && !focusNodeTitikJemput.hasFocus
-        ? Align(
-            alignment: Alignment.bottomCenter,
-            child: buildBottomBar()
-          )
+        ? Align(alignment: Alignment.bottomCenter, child: showBuildBottomBar())
         : const SizedBox();
   }
 
   // Widget dragg(){
   //   return DraggableScrollableSheet(builder: builder)
   // }
+
+  Widget backButtonTopBar() {
+    return Container(
+      color: Colors.white.withAlpha(0),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () {
+              // pop();
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -652,7 +683,7 @@ class _HomePesanState extends State<HomePesan>
             buildMapBackground(),
             // bar atas
             // buildTopBar(),
-
+            backButtonTopBar(),
             // Search
             // buildSearch(),
 
